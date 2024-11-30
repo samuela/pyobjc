@@ -76,13 +76,14 @@ def main():
         if nm.startswith("pyobjc-framework-"):
             names.append(nm)
 
+    versions = detect_pyversions()[:]
+    latest = versions.pop()
+    while latest.endswith("t"):
+        latest = versions.pop()
+
     failed = []
     for nm in names:
         # Collect sdist archive with most recent python version.
-        versions = detect_pyversions()
-        latest = versions.pop()
-        while latest.endswith("t"):
-            latest = versions.pop()
 
         status = subprocess.call(
             [
